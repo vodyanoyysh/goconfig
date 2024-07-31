@@ -16,7 +16,7 @@ type Config struct {
 
 func main() {
 	var cfg *Config
-	goconfig.LoadConfig(&cfg, "", "config.yaml")
+	goconfig.LoadConfig(&cfg, "config.yaml")
 }
 ```
 
