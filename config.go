@@ -6,12 +6,11 @@ import (
 	"gopkg.in/yaml.v3"
 	"log/slog"
 	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 )
 
-func LoadConfig(config *any, path, filename string) {
+func LoadConfig(config any, path string) {
 	err := godotenv.Load()
 	if err != nil {
 		slog.Warn(".env file not found, using the system environment variables")
@@ -19,7 +18,7 @@ func LoadConfig(config *any, path, filename string) {
 		slog.Debug(".env file loaded")
 	}
 
-	data, err := os.ReadFile(filepath.Join(path, filename))
+	data, err := os.ReadFile(path)
 	if err != nil {
 		slog.Error(fmt.Sprintf("error reading the file: %v", err))
 	}
@@ -30,7 +29,6 @@ func LoadConfig(config *any, path, filename string) {
 	}
 
 	replaceEnvVariables(config)
-	//config.Metrics = metrics.NewMetrics()
 }
 
 func replaceEnvVariables(config interface{}) {
